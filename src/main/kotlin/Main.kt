@@ -2,7 +2,7 @@
 fun main(){
 
 
-    val archivo = "Seguros.txt"
+   /* val archivo = "Seguros.txt"
     val repo = RepositorioSegurosFicheros(archivo, mapaSeguros)
 
     // Crear seguros y guardarlos
@@ -16,7 +16,7 @@ fun main(){
     val segurosCargados = repo.cargarSeguros()
     segurosCargados.forEach { println(it.tipoSeguro() + ": " + it.serializar()) }
 
-
+*/
 
     //-----------------------Arriba lo de Diego del readme(mirarselo)--------------------------------//
 

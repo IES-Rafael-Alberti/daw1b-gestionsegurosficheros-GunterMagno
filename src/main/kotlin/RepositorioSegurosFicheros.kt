@@ -5,7 +5,7 @@ class RepositorioSegurosFicheros {
     }
 
     fun cargarSeguros(): Map<String, (List<String>) -> Seguro>{
-
+        return
     }
 
 }
