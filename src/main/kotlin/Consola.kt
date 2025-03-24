@@ -24,14 +24,18 @@ class Consola {
             println("Has iniciado exitosamente como Usuario.\n")
             menuConsulta()
         }
-        else {
+        else if (tipoUsuario == "admin"){
             println("Has iniciado exitosamente como Admin.\n")
             menuAdmin()
+        }
+        else if (tipoUsuario == "gestion"){
+            println("Has iniciado exitosamente como Admin.\n")
+            menuGestion()
         }
     }
 
     fun menuAdmin(){
-        println("\n1.Usuarios\n\t1. Nuevo Usuario\n\t2. Eliminar Usuario\n\t3. Cambiar contraseña\n2. Seguros\n\t1. Contratar Seguro\n\t\t1. Hogar\n\t\t2. Coche\n\t\t3. Moto\n\t2. Editar Seguro(ingresar ID)\n\t3. Eliminar Seguro\n\t4. Listar Seguros\n4. Salir")
+        println("\n1.Usuarios\n\t1. Nuevo Usuario\n\t2. Eliminar Usuario\n\t3. Cambiar contraseña\n2. Seguros\n\t1. Contratar Seguro\n\t\t1. Seguro de Hogar\n\t\t2. Seguro de Coche\n\t\t3. Seguro de Moto\n\t2. Eliminar Seguro\n\t3. Consultar Seguros\n\t\t1.Todos\n\t\t2. Hogar\n\t\t3. Auto\n\t\t4.Vida\n4. Salir")
         print("Elija una opción -> ")
 
         when(readlnOrNull()?.toInt()){
@@ -47,11 +51,39 @@ class Consola {
     }
 
     fun menuConsulta(){
-        println("\n1. Seguros\n\t1. Consultar\n\t\t1.Hogar\n\t\t2. Auto\n\t\t3. Vida\n2. Mis Datos(nose si se puede hacer)\n3. Salir")
+        println("\n1. Seguros\n\t1. Consultar\n\t\t1. Todos\n\t\t2. Hogar\n\t\t3. Auto\n\t\t4. Vida\n2. Salir")
         print("Elija una opción -> ")
 
         when(readlnOrNull()?.toInt()){
-            1 -> return//ToDo listarSeguros()
+            1 -> {
+                println("Consultar Seguros:\n\t1. Todos\n\t2. Hogar\n\t3. Auto\n\t4. Vida")
+                print("Elija una opción -> ")
+                when(readlnOrNull()?.toInt()){
+                    1 -> return //ToDo listarTodos()
+                    2 -> return //ToDo listarSeguroHogar()
+                    3 -> return //ToDo listarSeguroAuto()
+                    4 -> return //ToDo listarSeguroVida()
+                }
+            }
+            2 -> return
+            else -> println("Opcion incorrecta. Intentelo de nuevo")
+        }
+    }
+
+    fun menuGestion(){
+        println("\n1. Seguros\n\t1. Contratar\n\t\t1. Hogar\n\t\t2. Auto\n\t\t3. Vida\n\t2. Eliminar Seguro\n\t3. Consultar\n\t\t1. Todos\n\t\t2. Hogar\n\t\t3. Auto\n\t\t4. Vida\n2. Salir")
+        print("Elija una opción -> ")
+
+        when(readlnOrNull()?.toInt()){
+            1 -> {
+                println("Contratar Seguros:\n\t1. Hogar\n\t2. Auto\n\t3. Vida")
+                print("Elija una opción -> ")
+                when(readlnOrNull()?.toInt()){
+                    1 -> return //ToDo contratarSeguro(Hogar)
+                    2 -> return //ToDo contratarSeguro(Auto)
+                    3 -> return //ToDo contratarSeguro(Vida)
+                }
+            }
             2 -> return
             else -> println("Opcion incorrecta. Intentelo de nuevo")
         }
