@@ -1,3 +1,4 @@
+import app.Consola
 
 fun main(){
 
@@ -6,8 +7,8 @@ fun main(){
     val repo = RepositorioSegurosFicheros(archivo, mapaSeguros)
 
     // Crear seguros y guardarlos
-    val seguroHogar = SeguroHogar(1,"12345678A",101,500.0,150000.0,"Calle Mayor, 12",80)
-    val seguroAuto = SeguroAuto(2,"98765432B",102,"Toyota Corolla Azul","Gasolina","Turismo","Todo Riesgo",true, 1,700)
+    val seguroHogar = model.SeguroHogar(1,"12345678A",101,500.0,150000.0,"Calle Mayor, 12",80)
+    val seguroAuto = model.SeguroAuto(2,"98765432B",102,"Toyota Corolla Azul","Gasolina","Turismo","Todo Riesgo",true, 1,700)
 
     repo.guardarSeguro(seguroHogar)
     repo.guardarSeguro(seguroAuto)
@@ -26,13 +27,13 @@ fun main(){
 
 }
 
-interface Serializar{
-
-}
-
 
 //ToDo Como hacer constructores secundarios
-//ToDo donde va la interface
+//ToDo aplicar la interfaz
+//ToDo Como hago para que la clave en Usuario sea private Set
+//ToDO que es eso de serializar con this::class.memberProperties.jointToString(separador){cosas raras}
+//ToDo hacer bien el hashcode de Seguro y el equals
+
 //ToDo arreglar/terminar menus
 //ToDo hacer paquetes organizados y organizar archivos
 //ToDo el 700 en seguroAuto a que se refiere???

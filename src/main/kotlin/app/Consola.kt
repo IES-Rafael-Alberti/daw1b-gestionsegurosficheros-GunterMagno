@@ -1,3 +1,5 @@
+package app
+
 import java.io.File
 
 class Consola {
@@ -35,7 +37,7 @@ class Consola {
     }
 
     fun menuAdmin(){
-        println("\n1.Usuarios\n\t1. Nuevo Usuario\n\t2. Eliminar Usuario\n\t3. Cambiar contraseña\n2. Seguros\n\t1. Contratar Seguro\n\t\t1. Seguro de Hogar\n\t\t2. Seguro de Coche\n\t\t3. Seguro de Moto\n\t2. Eliminar Seguro\n\t3. Consultar Seguros\n\t\t1.Todos\n\t\t2. Hogar\n\t\t3. Auto\n\t\t4.Vida\n3. Salir")
+        println("\n1.Usuarios\n\t1. Nuevo Usuario\n\t2. Eliminar Usuario\n\t3. Cambiar contraseña\n2. Seguros\n\t1. Contratar model.Seguro\n\t\t1. model.Seguro de Hogar\n\t\t2. model.Seguro de Coche\n\t\t3. model.Seguro de Moto\n\t2. Eliminar model.Seguro\n\t3. Consultar Seguros\n\t\t1.Todos\n\t\t2. Hogar\n\t\t3. Auto\n\t\t4.Vida\n3. Salir")
         print("Elija una opción -> ")
 
         when(readlnOrNull()?.toInt()){
@@ -49,7 +51,7 @@ class Consola {
                 }
             }
             2 -> {
-                println("Has entrado en la seccion Seguros, que te gustaría hacer:\n\t1.Contratar Seguro\n\t\t1. Hogar\n\t\t2. Auto\n\t\t3. Vida\n\t2.Eliminar Seguro\n\t3.Consultar Seguro\n\t\t1. Todos\n\t\t2. Hogar\n\t\t3. Auto\n\t\t4. Vida\n\t3. Salir")
+                println("Has entrado en la seccion Seguros, que te gustaría hacer:\n\t1.Contratar model.Seguro\n\t\t1. Hogar\n\t\t2. Auto\n\t\t3. Vida\n\t2.Eliminar model.Seguro\n\t3.Consultar model.Seguro\n\t\t1. Todos\n\t\t2. Hogar\n\t\t3. Auto\n\t\t4. Vida\n\t3. Salir")
                 print("Elija una opción -> ")
                 when(readlnOrNull()?.toInt()){
                     1 -> {
@@ -94,12 +96,12 @@ class Consola {
     }
 
     fun menuGestion(){
-        println("\n1. Seguros\n\t1. Contratar\n\t\t1. Hogar\n\t\t2. Auto\n\t\t3. Vida\n\t2. Eliminar Seguro\n\t3. Consultar\n\t\t1. Todos\n\t\t2. Hogar\n\t\t3. Auto\n\t\t4. Vida\n2. Salir")
+        println("\n1. Seguros\n\t1. Contratar\n\t\t1. Hogar\n\t\t2. Auto\n\t\t3. Vida\n\t2. Eliminar model.Seguro\n\t3. Consultar\n\t\t1. Todos\n\t\t2. Hogar\n\t\t3. Auto\n\t\t4. Vida\n2. Salir")
         print("Elija una opción -> ")
 
         when(readlnOrNull()?.toInt()){
             1 -> {
-                println("1. Contratar Seguros:\n\t1. Hogar\n\t2. Auto\n\t3. Vida\n2. Eliminar Seguro\n3. Consultar Seguro\n\t\t1. Todos\n\t\t2. Hogar\n\t\t3. Auto\n\t\t4. Vida")
+                println("1. Contratar Seguros:\n\t1. Hogar\n\t2. Auto\n\t3. Vida\n2. Eliminar model.Seguro\n3. Consultar model.Seguro\n\t\t1. Todos\n\t\t2. Hogar\n\t\t3. Auto\n\t\t4. Vida")
                 print("Elija una opción -> ")
                 when(readlnOrNull()?.toInt()){
                     1 -> return //ToDo contratarSeguro(Hogar)
