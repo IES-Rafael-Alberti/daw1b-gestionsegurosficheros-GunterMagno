@@ -31,9 +31,8 @@ interface Serializar{
 }
 
 
-
+//ToDo Como hacer constructores secundarios
 //ToDo donde va la interface
-//ToDo funciones de cada clase
 //ToDo arreglar/terminar menus
 //ToDo hacer paquetes organizados y organizar archivos
 //ToDo el 700 en seguroAuto a que se refiere???

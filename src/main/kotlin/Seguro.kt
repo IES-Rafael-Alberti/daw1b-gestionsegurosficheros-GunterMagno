@@ -6,6 +6,8 @@ abstract class Seguro(val numPoliza: Int,val dniTitular: String,private val impo
 
     abstract fun serializar(): String
 
+    fun obtenerImporte():Double = importe
+
     companion object{
         private var contador = 0 // ToDo El contador tiene que ser por cada seguro o uno general??
         fun generarID(tipoSeguro: String){

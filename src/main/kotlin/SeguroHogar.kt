@@ -2,9 +2,13 @@ class SeguroHogar(numPoliza: Int,dniTitular: String, importe: Double,val metros:
     Seguro(numPoliza, dniTitular, importe) {
 
     //CONSTRUCTOR SECUNDARIO LLAMANDO AL SUPER
+    constructor() : this(numPoliza, dniTitular, importe, metros, valorContenido, direccion)
+
+    private val tipoSeguro = tipoSeguro()
+    private val id = generarID(tipoSeguro)
 
     override fun calcularImporteAnioSiguiente(interes: Double): Double {
-        TODO("Not yet implemented")
+        return obtenerImporte() * (1 + (interes / 100))
     }
 
     override fun tipoSeguro(): String {
@@ -12,7 +16,7 @@ class SeguroHogar(numPoliza: Int,dniTitular: String, importe: Double,val metros:
     }
 
     override fun serializar(): String {
-        TODO("Not yet implemented")
+        return "$id;$dniTitular;$numPoliza;${obtenerImporte()};$metros;$valorContenido;$direccion;$tipoSeguro"
     }
 
 }
