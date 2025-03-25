@@ -43,14 +43,29 @@ class Consola {
                 println("Has entrado en la seccion Usuarios, que te gustaría hacer:\n\t1. Nuevo Usuario\n\t2. Eliminar Usuario\n\t3. Cambiar contraseña")
                 print("Elija una opción -> ")
                 when(readlnOrNull()?.toInt()){
-
+                    1 -> return //ToDo crearUsuario
+                    2 -> return //ToDo eliminarUsuario
+                    3 -> return //ToDo cambiarContraseña
                 }
             }
             2 -> {
-                println("Has entrado en la seccion Seguros, que te gustaría hacer:\n\t1.Contratar Seguro\n\t\t1.Hogar\n\t\tAuto\n\t\tVida\n\t2.Eliminar Seguro\n\t3.Consultar Seguro\n\t\t1. Todos\n\t\t2. Hogar\n\t\t3. Auto\n\t\t4. Vida\n\t3. Salir")
+                println("Has entrado en la seccion Seguros, que te gustaría hacer:\n\t1.Contratar Seguro\n\t\t1. Hogar\n\t\t2. Auto\n\t\t3. Vida\n\t2.Eliminar Seguro\n\t3.Consultar Seguro\n\t\t1. Todos\n\t\t2. Hogar\n\t\t3. Auto\n\t\t4. Vida\n\t3. Salir")
                 print("Elija una opción -> ")
                 when(readlnOrNull()?.toInt()){
-
+                    1 -> {
+                        println("Contratar un seguro, que tipo de seguro quieres contratar:\n\t1. Hogar\n\t2. Auto\n\t3. Vida")
+                        print("Elija una opción -> ")
+                        when(readlnOrNull()?.toInt()){
+                            1 -> return //ToDo contratarSeguro(TipoSeguro)
+                            2 -> return //ToDo contratarSeguro(TipoSeguro)
+                            3 -> return //ToDo contratarSeguro(TipoSeguro)
+                        }
+                    }
+                    2 -> {
+                        println("Que seguro quieres eliminar")
+                        //ToDo listarSeguros
+                    }
+                    3 -> return //ToDo crearUsuario
                 }
             }
             3 -> return
@@ -84,7 +99,7 @@ class Consola {
 
         when(readlnOrNull()?.toInt()){
             1 -> {
-                println("Contratar Seguros:\n\t1. Hogar\n\t2. Auto\n\t3. Vida")
+                println("1. Contratar Seguros:\n\t1. Hogar\n\t2. Auto\n\t3. Vida\n2. Eliminar Seguro\n3. Consultar Seguro\n\t\t1. Todos\n\t\t2. Hogar\n\t\t3. Auto\n\t\t4. Vida")
                 print("Elija una opción -> ")
                 when(readlnOrNull()?.toInt()){
                     1 -> return //ToDo contratarSeguro(Hogar)
@@ -93,6 +108,7 @@ class Consola {
                 }
             }
             2 -> return
+
             else -> println("Opcion incorrecta. Intentelo de nuevo")
         }
     }
