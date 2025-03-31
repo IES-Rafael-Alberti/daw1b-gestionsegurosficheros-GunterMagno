@@ -1,4 +1,5 @@
 package data
+import model.Perfil
 import model.Usuario
 
 open class RepoUsuariosMem : IRepoUsuarios{
@@ -27,7 +28,7 @@ open class RepoUsuariosMem : IRepoUsuarios{
         return usuarios
     }
 
-    override fun obtener(perfil: String): List<Usuario> {
+    override fun obtener(perfil: Perfil): List<Usuario> {
         return usuarios.filter { it.perfil == perfil }
     }
 

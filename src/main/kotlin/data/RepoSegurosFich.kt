@@ -19,26 +19,34 @@ class RepoSegurosFich(
 
     override fun eliminar(seguro: Seguro): Boolean {
         val segurosActualizados = obtenerTodos().filter { it != seguro }
-        if (fich.escribirArchivo(rutaArchivo, segurosActualizados)) {
-            return super.eliminar(seguro)
+        if (super.eliminar(seguro) && fich.escribirArchivo(rutaArchivo, segurosActualizados)) {
+            return true
         }
         return false
     }
 
     override fun cargarSeguros(mapa: Map<String, (List<String>) -> Seguro>): Boolean {
         val lineas = fich.leerArchivo(rutaArchivo)
-        lineas.forEach { linea ->
-            if (linea.isNotBlank()) {
-                val datos = linea.split(";")
-                val tipoSeguro = datos.last()
+        if (lineas.isNotEmpty()) {
+            lineas.forEach { linea ->
+                if (linea.isNotBlank()) {
+                    val datos = linea.split(";")
+                    val tipoSeguro = datos.last()
 
-                val seguro =
-                super.agregar(seguro)
+                    when(tipoSeguro){
+                        "Seguro de Hogar" -> SeguroHogar.crearSeguro(datos)
+                        "Seguro de Auto" -> SeguroAuto.crearSeguro(datos)
+                        "Seguro de Vida" -> SeguroVida.crearSeguro(datos)
+
+                    }
+                }
             }
+            actualizarContadores(obtenerTodos())
+            return true
         }
-        actualizarContadores(obtenerTodos())
-        return true
+        return false
     }
+
     private fun actualizarContadores(seguros: List<Seguro>) {
         val maxHogar = seguros.filter { it.tipoSeguro() == "Seguro de Hogar" }.maxOfOrNull { it.numPoliza }
         val maxAuto = seguros.filter { it.tipoSeguro() == "Seguro de Auto" }.maxOfOrNull { it.numPoliza }

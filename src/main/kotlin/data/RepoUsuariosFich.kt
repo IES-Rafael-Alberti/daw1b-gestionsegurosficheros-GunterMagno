@@ -10,8 +10,8 @@ class RepoUsuariosFich(
 
     override fun agregar(usuario: Usuario): Boolean {
         if (buscar(usuario.nombre) != null) return false
-        if (utilFicheros.agregarLinea(rutaArchivo, usuario.serializar())) {
-            return super.agregar(usuario)
+        if (super.agregar(usuario) && utilFicheros.agregarLinea(rutaArchivo, usuario.serializar())) {
+            return true
         }
         return false
     }
@@ -32,18 +32,23 @@ class RepoUsuariosFich(
 
     override fun cargarUsuarios(): Boolean {
         val lineas = utilFicheros.leerArchivo(rutaArchivo)
-        lineas.forEach { linea ->
-            if (linea.isNotBlank()) {
-                val datos = linea.split(";")
-                val usuario = Usuario.crearUsuario(datos)
 
-                if(usuario != null) {
-                    super.agregar(usuario)
+        if (lineas.isNotEmpty()) {
+            lineas.forEach { linea ->
+                if (linea.isNotBlank()) {
+
+                    val datos = linea.split(";")
+                    if (datos.size == 3) {
+                        val usuario = Usuario.crearUsuario(datos)
+
+                        if (usuario != null) {
+                            super.agregar(usuario)
+                        }
+                    }
                 }
             }
+            return true
         }
-        return true
+        return false
     }
-
-
 }

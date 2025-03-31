@@ -1,34 +1,52 @@
 package service
 
-import model.Perfil
-import model.Usuario
+import model.*
+import java.time.LocalDate
 
-class GestorSeguros: IServUsuarios {
-    override fun iniciarSesion(nombre: String, clave: String): Perfil? {
+class GestorSeguros: IServSeguros {
+    override fun contratarSeguroHogar(
+        dniTitular: String,
+        importe: Double,
+        metrosCuadrados: Int,
+        valorContenido: Double,
+        direccion: String,
+        anioConstruccion: Int
+    ): Boolean {
         TODO("Not yet implemented")
     }
 
-    override fun agregarUsuario(nombre: String, clave: String, perfil: Perfil): Boolean {
+    override fun contratarSeguroAuto(
+        dniTitular: String,
+        importe: Double,
+        descripcion: String,
+        combustible: String,
+        tipoAuto: TipoAuto,
+        cobertura: Cobertura,
+        asistenciaCarretera: Boolean,
+        numPartes: Int
+    ): Boolean {
         TODO("Not yet implemented")
     }
 
-    override fun eliminarUsuario(nombre: String): Boolean {
+    override fun contratarSeguroVida(
+        dniTitular: String,
+        importe: Double,
+        fechaNacimiento: LocalDate,
+        nivelRiesgo: NivelRiesgo,
+        indemnizacion: Double
+    ): Boolean {
         TODO("Not yet implemented")
     }
 
-    override fun cambiarClave(usuario: Usuario, nuevaClave: String): Boolean {
+    override fun eliminarSeguro(numPoliza: Int): Boolean {
         TODO("Not yet implemented")
     }
 
-    override fun buscarUsuario(nombre: String): Usuario? {
+    override fun consultarTodos(): List<Seguro> {
         TODO("Not yet implemented")
     }
 
-    override fun consultarTodos(): List<Usuario> {
-        TODO("Not yet implemented")
-    }
-
-    override fun consultarPorPerfil(perfil: Perfil): List<Usuario> {
+    override fun consultarPorTipo(tipoSeguro: String): List<Seguro> {
         TODO("Not yet implemented")
     }
 }

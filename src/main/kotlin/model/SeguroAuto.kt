@@ -2,15 +2,41 @@ package model
 
 class SeguroAuto : Seguro {
 
-    var descripcion: String = ""
-    var combustible: String = ""
-    var tipoAuto: TipoAuto = TipoAuto.COCHE
-    var tipoCobertura: String = ""
-    var asistenciaCarretera: Boolean = true
-    var numPartes: Int = 0
+    private var descripcion: String = ""
+    private var combustible: String = ""
+    private var tipoAuto: TipoAuto = TipoAuto.COCHE
+    private var tipoCobertura: String = ""
+    private var asistenciaCarretera: Boolean = true
+    private var numPartes: Int = 0
 
-    constructor(numPoliza: Int, dniTitular: String, importe: Double) : super(numPoliza, dniTitular, importe, descripcion, combustible, tipoAuto, tipoCobertura, asistenciaCarretera, numPartes)
-    constructor(numPoliza: Int, dniTitular: String, importe: Double) : super(numPoliza, dniTitular, importe, descripcion, combustible, tipoAuto, tipoCobertura, asistenciaCarretera, numPartes)
+    constructor(dniTitular: String,
+                importe: Double,
+                descripcion: String,
+                combustible: String,
+                tipoAuto: TipoAuto,
+                cobertura: Cobertura,
+                asistenciaCarretera: Boolean,
+                numPartes: Int) : super(generarID(),dniTitular,importe)
+
+    private constructor(numPoliza: Int,
+                        dniTitular: String,
+                        importe: Double,
+                        descripcion: String,
+                        combustible: String,
+                        tipoAuto: TipoAuto,
+                        cobertura: Cobertura,
+                        asistenciaCarretera: Boolean,
+                        numPartes: Int
+    ) : super(this.numPoliza,
+        this.dniTitular,
+        this.importe,
+        this.descripcion,
+        this.combustible,
+        this.tipoAuto,
+        this.tipoCobertura,
+        this.asistenciaCarretera,
+        this.numPartes
+        )
 
     private val tipoSeguro = tipoSeguro()
     private val id = generarID()
@@ -18,10 +44,6 @@ class SeguroAuto : Seguro {
     override fun calcularImporteAnioSiguiente(interes: Double): Double {
         val argumento = if (numPartes > 0) { interes + (2 * numPartes) } else interes
         return importe * (1 + (argumento / 100))
-    }
-
-    override fun tipoSeguro(): String {
-        return "Seguro de Auto"
     }
 
     override fun serializar(separador: String): String {

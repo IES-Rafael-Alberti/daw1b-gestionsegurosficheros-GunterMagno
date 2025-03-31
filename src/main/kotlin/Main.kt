@@ -31,15 +31,15 @@ fun main(){
 
 //ToDo Importante
 
-//ToDo Como hacer constructores secundarios
-//ToDo hacer bien el hashcode de Seguro y el equals
 //ToDo Terminar funcion cargarSeguros en RepoSegurosFich
+//ToDo hacer hash code de Usuario
+//ToDo Como hacer constructores secundarios
 
 
 //ToDo Importancia media
 
 //ToDO que es eso de serializar con this::class.memberProperties.jointToString(separador){cosas raras}
-
+//ToDo hacer toString de Seguros
 
 
 //ToDo Menos importancia

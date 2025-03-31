@@ -4,7 +4,9 @@ abstract class Seguro(val numPoliza: Int,private val dniTitular: String, protect
 
     abstract fun calcularImporteAnioSiguiente(interes: Double): Double
 
-    abstract fun tipoSeguro(): String
+    fun tipoSeguro(): String{
+        return this::class.simpleName ?: "Desconocido"
+    }
 
     override fun serializar(separador: String): String {
         return "$numPoliza$separador$dniTitular$separador$importe"
@@ -15,17 +17,13 @@ abstract class Seguro(val numPoliza: Int,private val dniTitular: String, protect
     }
 
     override fun hashCode(): Int {
-        return super.hashCode() + 1
+        return numPoliza.hashCode()
     }
 
     override fun equals(other: Any?): Boolean {
-        if (other == Seguro){
-            return if (numPoliza == other.numPoliza){
-                true
-                //ToDo como hacer esto
-            } else false
-        }
-        return super.equals(other)
+        if (this === other) return true
+        if (other !is Seguro) return false
+        return numPoliza == other.numPoliza
     }
 
     companion object{
