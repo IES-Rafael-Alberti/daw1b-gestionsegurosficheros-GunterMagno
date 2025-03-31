@@ -32,7 +32,7 @@ class GestorUsuarios(private val repoUsuarios: IRepoUsuarios, private val utilSe
     }
 
     override fun buscarUsuario(nombre: String): Usuario? {
-        TODO("Not yet implemented")
+        return repoUsuarios.buscar(nombre)
     }
 
     override fun consultarTodos(): List<Usuario> {
