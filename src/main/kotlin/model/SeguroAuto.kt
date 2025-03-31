@@ -29,14 +29,49 @@ class SeguroAuto : Seguro {
     }
 
     companion object{
-        private var numPolizasAuto = 399999
+        var numPolizasAuto = 399999
         fun generarID(): Int{
             return (numPolizasAuto++)
         }
 
         fun crearSeguro(datos: List<String>): SeguroAuto{
-            val
-            return SeguroAuto()
+            require(datos.size == 10) { "Datos incorrectos para crear SeguroAuto" }
+            return SeguroAuto(
+                numPoliza = datos[0].toInt(),
+                dniTitular = datos[1],
+                id = datos[2].toInt(),
+                importe = datos[3].toDouble(),
+                descripcion = datos[4],
+                combustible = datos[5],
+                tipoAuto = TipoAuto.getAuto(datos[6]),
+                cobertura = Cobertura.getCobertura(datos[7]),
+                asistenciaCarretera = datos[8].toBoolean(),
+                numPartes = datos[9].toInt()
+            )
+        }
+
+        fun nuevoSeguro(
+            dniTitular: String,
+            importe: Double,
+            descripcion: String,
+            combustible: String,
+            tipoAuto: TipoAuto,
+            cobertura: Cobertura,
+            asistenciaCarretera: Boolean,
+            numPartes: Int
+        ): SeguroAuto {
+            return SeguroAuto(
+                numPoliza = ++numPolizasAuto,
+                dniTitular = dniTitular,
+                id = numPolizasAuto,
+                importe = importe,
+                descripcion = descripcion,
+                combustible = combustible,
+                tipoAuto = tipoAuto,
+                cobertura = cobertura,
+                asistenciaCarretera = asistenciaCarretera,
+                numPartes = numPartes
+            )
         }
     }
 }

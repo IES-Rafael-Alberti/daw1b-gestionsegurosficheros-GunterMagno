@@ -35,14 +35,43 @@ class SeguroHogar : Seguro {
         const val PORCENTAJE_INCREMENTO_ANIOS = 0.02
         const val CICLO_ANIOS_INCREMENTO = 5
 
-        private var numPolizasHogar = 99999
+        var numPolizasHogar = 99999
         fun generarID(): Int{
             return (numPolizasHogar++)
         }
 
         fun crearSeguro(datos: List<String>): SeguroHogar{
-            val
-            return SeguroHogar()
+            require(datos.size == 8) { "Datos incorrectos para crear SeguroHogar" }
+            return SeguroHogar(
+                numPoliza = datos[0].toInt(),
+                dniTitular = datos[1],
+                id = datos[2].toInt(),
+                importe = datos[3].toDouble(),
+                metrosCuadrados = datos[4].toInt(),
+                valorContenido = datos[5].toDouble(),
+                direccion = datos[6],
+                anioConstruccion = datos[7].toInt()
+            )
+        }
+
+        fun nuevoSeguro(
+            dniTitular: String,
+            importe: Double,
+            metrosCuadrados: Int,
+            valorContenido: Double,
+            direccion: String,
+            anioConstruccion: Int
+        ): SeguroHogar {
+            return SeguroHogar(
+                numPoliza = ++numPolizasHogar,
+                dniTitular = dniTitular,
+                id = numPolizasHogar,
+                importe = importe,
+                metrosCuadrados = metrosCuadrados,
+                valorContenido = valorContenido,
+                direccion = direccion,
+                anioConstruccion = anioConstruccion
+            )
         }
     }
 }

@@ -23,7 +23,7 @@ class Consola {
         //ToDo hacer logica para iniciar la sesion
 
         if (tipoUsuario == "usuario"){
-            println("Has iniciado exitosamente como Usuario.\n")
+            println("Has iniciado exitosamente como model.Usuario.\n")
             menuConsulta()
         }
         else if (tipoUsuario == "admin"){
@@ -37,12 +37,12 @@ class Consola {
     }
 
     fun menuAdmin(){
-        println("\n1.Usuarios\n\t1. Nuevo Usuario\n\t2. Eliminar Usuario\n\t3. Cambiar contraseña\n2. Seguros\n\t1. Contratar model.Seguro\n\t\t1. model.Seguro de Hogar\n\t\t2. model.Seguro de Coche\n\t\t3. model.Seguro de Moto\n\t2. Eliminar model.Seguro\n\t3. Consultar Seguros\n\t\t1.Todos\n\t\t2. Hogar\n\t\t3. Auto\n\t\t4.Vida\n3. Salir")
+        println("\n1.Usuarios\n\t1. Nuevo model.Usuario\n\t2. Eliminar model.Usuario\n\t3. Cambiar contraseña\n2. Seguros\n\t1. Contratar model.Seguro\n\t\t1. model.Seguro de Hogar\n\t\t2. model.Seguro de Coche\n\t\t3. model.Seguro de Moto\n\t2. Eliminar model.Seguro\n\t3. Consultar Seguros\n\t\t1.Todos\n\t\t2. Hogar\n\t\t3. Auto\n\t\t4.Vida\n3. Salir")
         print("Elija una opción -> ")
 
         when(readlnOrNull()?.toInt()){
             1 -> {
-                println("Has entrado en la seccion Usuarios, que te gustaría hacer:\n\t1. Nuevo Usuario\n\t2. Eliminar Usuario\n\t3. Cambiar contraseña")
+                println("Has entrado en la seccion Usuarios, que te gustaría hacer:\n\t1. Nuevo model.Usuario\n\t2. Eliminar model.Usuario\n\t3. Cambiar contraseña")
                 print("Elija una opción -> ")
                 when(readlnOrNull()?.toInt()){
                     1 -> return //ToDo crearUsuario
@@ -148,7 +148,7 @@ class Consola {
 
         println("\n\n\n")
         mostrarTitulo()
-        println("\n1. Iniciar sesion como Administrador\n2. Iniciar sesion como Gestor\n3. Iniciar sesion como Usuario")
+        println("\n1. Iniciar sesion como Administrador\n2. Iniciar sesion como Gestor\n3. Iniciar sesion como model.Usuario")
         print("Elija una opción -> ")
 
         when (readlnOrNull()?.toInt()) {

@@ -1,5 +1,7 @@
 package model
 
+import java.time.LocalDate
+
 class SeguroVida: Seguro {
 
     val fechaNac: String = ""
@@ -22,7 +24,7 @@ class SeguroVida: Seguro {
     }
 
     override fun tipoSeguro(): String {
-        return "model.Seguro de Vida"
+        return "Seguro de Vida"
     }
 
     override fun serializar(separador: String): String {
@@ -30,14 +32,40 @@ class SeguroVida: Seguro {
     }
 
     companion object{
-        private var numPolizasAuto = 799999
+        var numPolizasVida = 799999
         fun generarID(): Int{
-            return (numPolizasAuto++)
+            return (numPolizasVida++)
         }
 
         fun crearSeguro(datos: List<String>): SeguroVida{
-            val
-            return SeguroVida()
+            require(datos.size == 7) { "Datos incorrectos para crear SeguroVida" }
+            return SeguroVida(
+                numPoliza = datos[0].toInt(),
+                dniTitular = datos[1],
+                id = datos[2].toInt(),
+                importe = datos[3].toDouble(),
+                fechaNac = LocalDate.parse(datos[4]),
+                nivelRiesgo = NivelRiesgo.getRiesgo(datos[5]),
+                indemnizacion = datos[6].toDouble()
+            )
+        }
+
+        fun nuevoSeguro(
+            dniTitular: String,
+            importe: Double,
+            fechaNacimiento: String,
+            nivelRiesgo: NivelRiesgo,
+            indemnizacion: Double
+        ): SeguroVida {
+            return SeguroVida(
+                numPoliza = ++numPolizasVida,
+                dniTitular = dniTitular,
+                id = numPolizasVida,
+                importe = importe,
+                fechaNac = fechaNacimiento,
+                nivelRiesgo = nivelRiesgo,
+                indemnizacion = indemnizacion
+            )
         }
     }
 }

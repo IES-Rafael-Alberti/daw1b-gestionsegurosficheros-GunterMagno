@@ -10,7 +10,7 @@ enum class Cobertura(val desc: String) {
     TODO_RIESGO("Todo Riesgo");
 
     companion object{
-        fun getRiesgo(valor: String): Cobertura{
+        fun getCobertura(valor: String): Cobertura{
             return when(valor.lowercase()){
                 "terceros" -> TERCEROS
                 "terceros ampliado" -> TERCEROS_AMPLIADO

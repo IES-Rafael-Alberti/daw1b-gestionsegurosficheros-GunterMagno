@@ -1,4 +1,4 @@
-import model.IExportable
+package model
 
 class Usuario(val nombre: String,val perfil: String): IExportable{
 

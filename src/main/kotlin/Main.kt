@@ -28,12 +28,21 @@ fun main(){
 }
 
 
+
+//ToDo Importante
+
 //ToDo Como hacer constructores secundarios
-//ToDo aplicar la interfaz
-//ToDo Como hago para que la clave en Usuario sea private Set
-//ToDO que es eso de serializar con this::class.memberProperties.jointToString(separador){cosas raras}
 //ToDo hacer bien el hashcode de Seguro y el equals
+//ToDo Terminar funcion cargarSeguros en RepoSegurosFich
+
+
+//ToDo Importancia media
+
+//ToDO que es eso de serializar con this::class.memberProperties.jointToString(separador){cosas raras}
+
+
+
+//ToDo Menos importancia
 
 //ToDo arreglar/terminar menus
-//ToDo hacer paquetes organizados y organizar archivos
 //ToDo el 700 en seguroAuto a que se refiere???
