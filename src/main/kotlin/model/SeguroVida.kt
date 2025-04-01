@@ -4,7 +4,7 @@ import java.time.LocalDate
 
 class SeguroVida: Seguro {
 
-    val fechaNac: String = ""
+    val fechaNac: LocalDate = LocalDate.now() //ToDo cambiar esto
     val nivelRiesgo: NivelRiesgo = NivelRiesgo.BAJO
     val indemnizacion: Double = 0.0
 
@@ -21,10 +21,6 @@ class SeguroVida: Seguro {
             NivelRiesgo.ALTO -> 10.0
         }
         return importe * (1 + ((interes + argumento)/100))
-    }
-
-    override fun tipoSeguro(): String {
-        return "Seguro de Vida"
     }
 
     override fun serializar(separador: String): String {
@@ -53,7 +49,7 @@ class SeguroVida: Seguro {
         fun nuevoSeguro(
             dniTitular: String,
             importe: Double,
-            fechaNacimiento: String,
+            fechaNacimiento: LocalDate,
             nivelRiesgo: NivelRiesgo,
             indemnizacion: Double
         ): SeguroVida {

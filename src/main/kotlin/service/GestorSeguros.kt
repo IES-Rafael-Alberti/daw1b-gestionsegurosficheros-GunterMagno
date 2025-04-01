@@ -1,9 +1,17 @@
 package service
 
-import model.*
+import model.TipoAuto
+import model.Cobertura
+import model.NivelRiesgo
+import model.Seguro
+import model.SeguroHogar
+import model.SeguroAuto
+import model.SeguroVida
 import java.time.LocalDate
+import data.IRepoSeguros
 
-class GestorSeguros: IServSeguros {
+class GestorSeguros(private val repoSeguros: IRepoSeguros
+): IServSeguros {
     override fun contratarSeguroHogar(
         dniTitular: String,
         importe: Double,
@@ -12,7 +20,9 @@ class GestorSeguros: IServSeguros {
         direccion: String,
         anioConstruccion: Int
     ): Boolean {
-        TODO("Not yet implemented")
+        val seguro = SeguroHogar.nuevoSeguro(dniTitular,importe,metrosCuadrados,valorContenido,direccion,anioConstruccion)
+
+        return repoSeguros.agregar(seguro)
     }
 
     override fun contratarSeguroAuto(
@@ -25,7 +35,9 @@ class GestorSeguros: IServSeguros {
         asistenciaCarretera: Boolean,
         numPartes: Int
     ): Boolean {
-        TODO("Not yet implemented")
+        val seguro = SeguroAuto.nuevoSeguro(dniTitular,importe,descripcion,combustible,tipoAuto,cobertura,asistenciaCarretera,numPartes)
+
+        return repoSeguros.agregar(seguro)
     }
 
     override fun contratarSeguroVida(
@@ -35,18 +47,20 @@ class GestorSeguros: IServSeguros {
         nivelRiesgo: NivelRiesgo,
         indemnizacion: Double
     ): Boolean {
-        TODO("Not yet implemented")
+        val seguro = SeguroVida.nuevoSeguro(dniTitular,importe,fechaNacimiento,nivelRiesgo,indemnizacion)
+
+        return repoSeguros.agregar(seguro)
     }
 
     override fun eliminarSeguro(numPoliza: Int): Boolean {
-        TODO("Not yet implemented")
+        return repoSeguros.eliminar(numPoliza)
     }
 
     override fun consultarTodos(): List<Seguro> {
-        TODO("Not yet implemented")
+        return repoSeguros.obtenerTodos()
     }
 
     override fun consultarPorTipo(tipoSeguro: String): List<Seguro> {
-        TODO("Not yet implemented")
+        return repoSeguros.obtener(tipoSeguro)
     }
 }

@@ -24,11 +24,12 @@ class GestorUsuarios(private val repoUsuarios: IRepoUsuarios, private val utilSe
     }
 
     override fun eliminarUsuario(nombre: String): Boolean {
-        TODO("Not yet implemented")
+        return repoUsuarios.eliminar(nombre)
     }
 
     override fun cambiarClave(usuario: Usuario, nuevaClave: String): Boolean {
-        TODO("Not yet implemented")
+        val nuevaClaveEncriptada = utilSeguridad.encriptarClave(nuevaClave)
+        return repoUsuarios.cambiarClave(usuario, nuevaClaveEncriptada)
     }
 
     override fun buscarUsuario(nombre: String): Usuario? {
@@ -36,10 +37,10 @@ class GestorUsuarios(private val repoUsuarios: IRepoUsuarios, private val utilSe
     }
 
     override fun consultarTodos(): List<Usuario> {
-        TODO("Not yet implemented")
+        return repoUsuarios.obtenerTodos()
     }
 
     override fun consultarPorPerfil(perfil: Perfil): List<Usuario> {
-        TODO("Not yet implemented")
+        return repoUsuarios.obtener(perfil)
     }
 }

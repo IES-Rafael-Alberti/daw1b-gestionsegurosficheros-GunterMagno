@@ -1,4 +1,4 @@
-import app.Consola
+import ui.Consola
 
 fun main(){
 
