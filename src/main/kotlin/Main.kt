@@ -31,21 +31,16 @@ fun main(){
 
 //ToDo Importante
 
-//ToDo Terminar funcion cargarSeguros en RepoSegurosFich
-//ToDo hacer hash code de Usuario
-//ToDo Como hacer constructores secundarios
+//ToDo Arreglar constructores
+//ToDo Arreglar equals
 
 
 //ToDo Importancia media
 
-//ToDO que es eso de serializar con this::class.memberProperties.jointToString(separador){cosas raras}
-//ToDo hacer toString de Seguros
 
 
 //ToDo Menos importancia
 
-//ToDo arreglar/terminar menus
-//ToDo el 700 en seguroAuto a que se refiere???
 
 
 

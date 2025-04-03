@@ -4,12 +4,28 @@ import java.time.LocalDate
 
 class SeguroVida: Seguro {
 
-    val fechaNac: LocalDate = LocalDate.now() //ToDo cambiar esto
-    val nivelRiesgo: NivelRiesgo = NivelRiesgo.BAJO
-    val indemnizacion: Double = 0.0
+    var fechaNac: LocalDate = LocalDate.now()
+    var nivelRiesgo: NivelRiesgo = NivelRiesgo.BAJO
+    var indemnizacion: Double = 0.0
 
-    constructor(numPoliza: Int, dniTitular: String, importe: Double) : super(numPoliza, dniTitular, importe, fechaNac, nivelRiesgo, indemnizacion)
-    constructor(numPoliza: Int, dniTitular: String, importe: Double) : super(numPoliza, dniTitular, importe, fechaNac, nivelRiesgo, indemnizacion)
+    constructor(dniTitular: String,
+                importe: Double,
+                fechaNac: LocalDate,
+                nivelRiesgo: NivelRiesgo,
+                indemnizacion: Double
+    ) : super(generarID(),dniTitular, importe){
+        this.fechaNac = fechaNac
+        this.nivelRiesgo = nivelRiesgo
+        this.indemnizacion = indemnizacion
+    }
+    private constructor(numPoliza: Int,
+                        dniTitular: String,
+                        importe: Double,
+    ) : super(numPoliza, dniTitular, importe){
+        this.fechaNac
+        this.nivelRiesgo
+        this.indemnizacion
+    }
 
     private val tipoSeguro = tipoSeguro()
     private val id = generarID()
@@ -25,6 +41,10 @@ class SeguroVida: Seguro {
 
     override fun serializar(separador: String): String {
         return super.serializar(separador) + "$separador$fechaNac$separador$nivelRiesgo$separador$indemnizacion$separador$tipoSeguro"
+    }
+
+    override fun toString(): String {
+        return "Seguro de Vida(NºPoliza: $numPoliza, DNI Titular: $dniTitular, Importe: $importe, Fecha Nacimiento: $fechaNac, Nivel Riesgo: $nivelRiesgo, Indemnizacion: $indemnizacion)"
     }
 
     companion object{

@@ -13,6 +13,16 @@ class Usuario(val nombre: String,clave: String,val perfil: Perfil): IExportable{
         return "$nombre$separador$perfil$separador$clave"
     }
 
+    override fun hashCode(): Int {
+        return nombre.hashCode()
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Seguro) return false
+        return nombre == other.nombre
+    }
+
     override fun toString(): String {
         return "Usuario (nombre= $nombre, clave= $clave, perfil= $perfil)"
     }

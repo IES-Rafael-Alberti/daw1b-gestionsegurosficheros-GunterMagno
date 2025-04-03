@@ -5,7 +5,7 @@ class SeguroAuto : Seguro {
     private var descripcion: String = ""
     private var combustible: String = ""
     private var tipoAuto: TipoAuto = TipoAuto.COCHE
-    private var tipoCobertura: String = ""
+    private var tipoCobertura: Cobertura = Cobertura.TERCEROS
     private var asistenciaCarretera: Boolean = true
     private var numPartes: Int = 0
 
@@ -14,29 +14,30 @@ class SeguroAuto : Seguro {
                 descripcion: String,
                 combustible: String,
                 tipoAuto: TipoAuto,
-                cobertura: Cobertura,
+                tipoCobertura: Cobertura,
                 asistenciaCarretera: Boolean,
-                numPartes: Int) : super(generarID(),dniTitular,importe)
+                numPartes: Int
+    ) : super(generarID(),dniTitular,importe){
+        this.descripcion = descripcion
+        this.combustible = combustible
+        this.tipoAuto = tipoAuto
+        this.tipoCobertura = tipoCobertura
+        this.asistenciaCarretera = asistenciaCarretera
+        this.numPartes = numPartes
+
+        }
 
     private constructor(numPoliza: Int,
                         dniTitular: String,
                         importe: Double,
-                        descripcion: String,
-                        combustible: String,
-                        tipoAuto: TipoAuto,
-                        cobertura: Cobertura,
-                        asistenciaCarretera: Boolean,
-                        numPartes: Int
-    ) : super(this.numPoliza,
-        this.dniTitular,
-        this.importe,
-        this.descripcion,
-        this.combustible,
-        this.tipoAuto,
-        this.tipoCobertura,
-        this.asistenciaCarretera,
+    ) : super(numPoliza,dniTitular,importe) {
+        this.descripcion
+        this.combustible
+        this.tipoAuto
+        this.tipoCobertura
+        this.asistenciaCarretera
         this.numPartes
-        )
+    }
 
     private val tipoSeguro = tipoSeguro()
     private val id = generarID()
@@ -48,6 +49,10 @@ class SeguroAuto : Seguro {
 
     override fun serializar(separador: String): String {
         return super.serializar(separador) + "$separador$descripcion$separador$combustible$separador$tipoAuto$separador$tipoCobertura$separador$asistenciaCarretera$separador$numPartes$separador$tipoSeguro"
+    }
+
+    override fun toString(): String {
+        return "Seguro de Auto(NºPoliza: $numPoliza, DNI Titular: $dniTitular, Importe: $importe, Descripcion: $descripcion, Combustible: $combustible, Tipo Auto: $tipoAuto, Tipo Cobertura: $tipoCobertura, Asistencia: $asistenciaCarretera, NºPartes: $numPartes)"
     }
 
     companion object{

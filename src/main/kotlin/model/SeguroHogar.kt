@@ -8,9 +8,27 @@ class SeguroHogar : Seguro {
     private var direccion: String = ""
     private var anioConstruccion: String = ""
 
-    constructor(numPoliza: Int,dniTitular: String,importe: Double,metrosCuadrados: Int,valorContenido: Double,direccion: String,anioConstruccion: String) : super(numPoliza, dniTitular, importe) //ToDo como hacerlo
+    constructor(dniTitular: String,
+                importe: Double,
+                metrosCuadrados: Int,
+                valorContenido: Double,
+                direccion: String,
+                anioConstruccion: String
+    ) : super(generarID(), dniTitular, importe){
+        this.metrosCuadrados = metrosCuadrados
+        this.valorContenido = valorContenido
+        this.direccion = direccion
+        this.anioConstruccion = anioConstruccion
+    }
 
-    private constructor(numPoliza: Int,dniTitular: String,importe: Double,metrosCuadrados: Int,valorContenido: Double,direccion: String,anioConstruccion: String) : super(numPoliza, dniTitular, importe) //ToDo como hacerlo
+    private constructor(numPoliza: Int,
+                        dniTitular: String,
+                        importe: Double,
+    ) : super(numPoliza,dniTitular,importe){
+        this.valorContenido
+        this.direccion
+        this.anioConstruccion
+    }
 
     private val tipoSeguro = tipoSeguro()
     private val id = generarID()
@@ -19,16 +37,12 @@ class SeguroHogar : Seguro {
         return importe * (1 + (interes / 100))
     }
 
-    override fun tipoSeguro(): String {
-        return "Seguro de Hogar"
-    }
-
     override fun serializar(separador: String): String {
         return super.serializar(separador) + "$separador$metrosCuadrados$separador$valorContenido$separador$direccion$separador$tipoSeguro$separador$anioConstruccion"
     }
 
     override fun toString(): String {
-        return "$numPoliza"
+        return "Seguro de Hogar(NºPoliza: $numPoliza, DNI Titular: $dniTitular, Importe: $importe, Metros Cuadrados: $metrosCuadrados, Direccion: $direccion, Valor Contenido: $valorContenido, Año Construcción: $anioConstruccion)"
     }
 
     companion object{
