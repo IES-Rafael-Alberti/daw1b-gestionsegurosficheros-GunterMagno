@@ -39,11 +39,9 @@ class RepoUsuariosFich(
 
                     val datos = linea.split(";")
                     if (datos.size == 3) {
-                        val usuario = Usuario.crearUsuario(datos)
+                        Usuario.crearUsuario(datos)?.let { usuarios.add(it) }
 
-                        if (usuario != null) {
-                            super.agregar(usuario)
-                        }
+                        //usuarios.add(Usuario.crearUsuario(datos))
                     }
                 }
             }

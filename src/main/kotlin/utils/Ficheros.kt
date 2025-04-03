@@ -5,10 +5,16 @@ import ui.IEntradaSalida
 import java.io.File
 import java.io.IOException
 
-class Ficheros(val consola:IEntradaSalida): IUtilFicheros {
+class Ficheros(private val consola:IEntradaSalida): IUtilFicheros {
+
     override fun leerArchivo(ruta: String): List<String> {
+        val archivo = File(ruta)
         return try {
-            File(ruta).takeIf { it.exists() }?.readLines() ?: emptyList()
+            if (archivo.exists()){
+                archivo.readLines()
+            }else{
+                throw IOException("Error no se pudo leer el archivo o no existe.")
+            }
         } catch (e: IOException) {
             consola.mostrarError("Error al leer el archivo: ${e.message}")
             emptyList()
@@ -17,7 +23,7 @@ class Ficheros(val consola:IEntradaSalida): IUtilFicheros {
 
     override fun agregarLinea(ruta: String, linea: String): Boolean {
         return try{
-            File(ruta).appendText("$linea;\n")
+            File(ruta).appendText("$linea\n")
             true
         }catch (e: IOException){
             consola.mostrarError("Error al escribir en el archivo: ${e.message}")

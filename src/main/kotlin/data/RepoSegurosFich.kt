@@ -30,11 +30,13 @@ class RepoSegurosFich(
                     val datos = linea.split(";")
                     val tipoSeguro = datos.last()
 
-                    when(tipoSeguro){
-                        "Seguro de Hogar" -> SeguroHogar.crearSeguro(datos)
-                        "Seguro de Auto" -> SeguroAuto.crearSeguro(datos)
-                        "Seguro de Vida" -> SeguroVida.crearSeguro(datos)
+                    // val funcionCrearSeguro = mapaCrearSeguros[tipoSeguro]
+                    // if (funcionCrearSeguro){seguro.add(datos.dropLast(1))}
 
+                    when(tipoSeguro){
+                        "Seguro de Hogar" -> SeguroHogar.crearSeguro(datos.dropLast(1))
+                        "Seguro de Auto" -> SeguroAuto.crearSeguro(datos.dropLast(1))
+                        "Seguro de Vida" -> SeguroVida.crearSeguro(datos.dropLast(1))
                     }
                 }
             }

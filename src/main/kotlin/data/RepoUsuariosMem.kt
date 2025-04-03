@@ -4,7 +4,7 @@ import model.Usuario
 
 open class RepoUsuariosMem : IRepoUsuarios{
 
-    private val usuarios = mutableListOf<Usuario>()
+    val usuarios = mutableListOf<Usuario>()
 
     override fun agregar(usuario: Usuario): Boolean {
         if (buscar(usuario.nombre) != null) return false

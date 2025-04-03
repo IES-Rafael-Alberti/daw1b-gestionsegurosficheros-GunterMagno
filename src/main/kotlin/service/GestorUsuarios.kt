@@ -10,7 +10,7 @@ class GestorUsuarios(private val repoUsuarios: IRepoUsuarios, private val utilSe
     override fun iniciarSesion(nombre: String, clave: String): Perfil? {
         val usuario = repoUsuarios.buscar(nombre)
         if (usuario != null){
-            return if (utilSeguridad.verificarClave(clave,)) usuario.perfil else null//ToDo de donde sale el hashAlmacenado
+            return if (utilSeguridad.verificarClave(clave,usuario.clave)) usuario.perfil else null
         }
         return null
     }

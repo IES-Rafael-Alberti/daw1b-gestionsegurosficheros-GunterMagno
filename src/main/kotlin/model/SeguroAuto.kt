@@ -52,7 +52,7 @@ class SeguroAuto : Seguro {
     }
 
     override fun toString(): String {
-        return "Seguro de Auto(NºPoliza: $numPoliza, DNI Titular: $dniTitular, Importe: $importe, Descripcion: $descripcion, Combustible: $combustible, Tipo Auto: $tipoAuto, Tipo Cobertura: $tipoCobertura, Asistencia: $asistenciaCarretera, NºPartes: $numPartes)"
+        return "Seguro de Auto(NºPoliza: $numPoliza, DNI Titular: ${getDNI()}, Importe: $importe, Descripcion: $descripcion, Combustible: $combustible, Tipo Auto: $tipoAuto, Tipo Cobertura: $tipoCobertura, Asistencia: $asistenciaCarretera, NºPartes: $numPartes)"
     }
 
     companion object{

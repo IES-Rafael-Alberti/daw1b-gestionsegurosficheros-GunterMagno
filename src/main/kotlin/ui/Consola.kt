@@ -4,7 +4,6 @@ import jdk.internal.org.jline.reader.EndOfFileException
 import jdk.internal.org.jline.reader.LineReaderBuilder
 import jdk.internal.org.jline.reader.UserInterruptException
 import jdk.internal.org.jline.terminal.TerminalBuilder
-import java.io.File
 
 class Consola: IEntradaSalida {
 
@@ -46,7 +45,6 @@ class Consola: IEntradaSalida {
             } catch (e: NumberFormatException) {
                 mostrarError(errorConv)
                 valor = null
-                //ToDo que me dijo del throw ?
             }
 
         }while (valor == null)

@@ -1,39 +1,104 @@
 import ui.Consola
+import app.CargadorInicial
+import app.ControlAcceso
+import app.GestorMenu
+import data.*
+import service.GestorSeguros
+import service.GestorUsuarios
+import utils.Ficheros
+import utils.Seguridad
+import javax.naming.ldap.Control
 
-fun main(){
+fun seleccionarModoAlmacenamiento(consola: Consola): Boolean {
+    while (true) {
+        consola.mostrar("\nSeleccione modo de almacenamiento:")
+        consola.mostrar("1. Ejecutar en modo simulación (solo en memoria)")
+        consola.mostrar("2. Ejecutar en modo Almacenamiento (usar ficheros)")
 
-
-   /* val archivo = "Seguros.txt"
-    val repo = RepositorioSegurosFicheros(archivo, mapaSeguros)
-
-    // Crear seguros y guardarlos
-    val seguroHogar = model.SeguroHogar(1,"12345678A",101,500.0,150000.0,"Calle Mayor, 12",80)
-    val seguroAuto = model.SeguroAuto(2,"98765432B",102,"Toyota Corolla Azul","Gasolina","Turismo","Todo Riesgo",true, 1,700)
-
-    repo.guardarSeguro(seguroHogar)
-    repo.guardarSeguro(seguroAuto)
-
-    // Cargar seguros desde el fichero
-    val segurosCargados = repo.cargarSeguros()
-    segurosCargados.forEach { println(it.tipoSeguro() + ": " + it.serializar()) }
-
-*/
-
-    //-----------------------Arriba lo de Diego del readme(mirarselo)--------------------------------//
-
-    val consola = Consola()
-
-    consola.menuPrincipal()
-
+        when (consola.pedirInfo("Elija una opción: ")) {
+            "1" -> return false
+            "2" -> return true
+            else -> consola.mostrarError("Opción inválida")
+        }
+    }
 }
 
+fun mostrarTitulo(){
+    val titulo = "Gestor de Seguros"
 
+    println(" "+"-".repeat(29))
+    println("|" + " ".repeat(29) + "|")
+    println("|" + " ".repeat(6)+ titulo + " ".repeat(6) + "|")
+    println("|" + " ".repeat(29) + "|")
+    println(" "+"-".repeat(29))
+}
+
+fun main() {
+
+    // Crear dos variables con las rutas de los archivos de texto donde se almacenan los usuarios y seguros.
+    // Estos ficheros se usarán solo si el programa se ejecuta en modo de almacenamiento persistente.
+
+    val rutaUsuarios = "Usuarios.txt"
+    val rutaSeguros = "Seguros.txt"
+
+    // Instanciamos los componentes base del sistema: la interfaz de usuario, el gestor de ficheros y el módulo de seguridad.
+    // Estos objetos serán inyectados en los diferentes servicios y utilidades a lo largo del programa.
+
+    val consola = Consola()
+    val gestorFicheros = Ficheros(consola)
+    val seguridad = Seguridad()
+
+    // Limpiamos la pantalla antes de comenzar, para que la interfaz esté despejada al usuario.
+
+    consola.limpiarPantalla()
+    mostrarTitulo()
+
+    // Preguntamos al usuario si desea iniciar en modo simulación.
+    // En modo simulación los datos no se guardarán en archivos, solo estarán en memoria durante la ejecución.
+
+    val modoAlmacenamiento = seleccionarModoAlmacenamiento(consola)
+
+    // Declaramos los repositorios de usuarios y seguros.
+    // Se asignarán más abajo dependiendo del modo elegido por el usuario.
+    // Si se ha elegido modo simulación, se usan repositorios en memoria.
+    // Si se ha elegido almacenamiento persistente, se instancian los repositorios que usan ficheros.
+    // Además, creamos una instancia del cargador inicial de información y lanzamos la carga desde los ficheros.
+
+    val repoUsuarios = if(!modoAlmacenamiento)(RepoUsuariosMem()) else RepoUsuariosFich(rutaUsuarios,gestorFicheros)
+    val repoSeguros = if(!modoAlmacenamiento)(RepoSegurosMem()) else RepoSegurosFich(rutaSeguros,gestorFicheros)
+
+    if (modoAlmacenamiento) {
+        val cargadorInicial = CargadorInicial(consola)
+
+        val mapaSeguros = gestorFicheros.leerArchivo(rutaSeguros) //ToDo no se
+
+        cargadorInicial.cargarInfo(repoUsuarios,repoSeguros,mapaSeguros) //ToDo val lineas = fich.leerArchivo(rutaArchivo), esto es lo que tengo en cargar seguros
+    }
+    // Se crean los servicios de lógica de negocio, inyectando los repositorios y el componente de seguridad.
+
+    val gestorUsuarios = GestorUsuarios(repoUsuarios,seguridad)
+    val gestorSeguros = GestorSeguros(repoSeguros)
+
+    // Se inicia el proceso de autenticación. Se comprueba si hay usuarios en el sistema y se pide login.
+    // Si no hay usuarios, se permite crear un usuario ADMIN inicial.
+
+    val controlAcceso = ControlAcceso(rutaUsuarios,consola,gestorUsuarios,gestorFicheros)
+    controlAcceso.
+
+    // Si el login fue exitoso (no es null), se inicia el menú correspondiente al perfil del usuario autenticado.
+    // Se lanza el menú principal, **iniciarMenu(0)**, pasándole toda la información necesaria.
+
+    val gestorMenu = GestorMenu(nombreUsuario,perfilUsuario,consola,gestorUsuarios,gestorSeguros)
+
+}
 
 //ToDo Importante
 
 //ToDo Arreglar constructores
 //ToDo Arreglar equals
-
+//ToDo terminar main.kt
+//ToDo Cambiar ruta archivos
+//ToDo terminar control de acceso en app
 
 //ToDo Importancia media
 
@@ -42,170 +107,3 @@ fun main(){
 //ToDo Menos importancia
 
 
-
-
-
-/*
-            LO DE ABAJO ES LO QUE TENIA ANTES DE MENUS
-            LO DE ABAJO ES LO QUE TENIA ANTES DE MENUS
-            LO DE ABAJO ES LO QUE TENIA ANTES DE MENUS
-            LO DE ABAJO ES LO QUE TENIA ANTES DE MENUS
-            LO DE ABAJO ES LO QUE TENIA ANTES DE MENUS
-            LO DE ABAJO ES LO QUE TENIA ANTES DE MENUS
-
-    fun mostrarTitulo(){
-        val titulo = "Gestor de Seguros"
-
-        println(" "+"-".repeat(29))
-        println("|" + " ".repeat(29) + "|")
-        println("|" + " ".repeat(6)+ titulo + " ".repeat(6) + "|")
-        println("|" + " ".repeat(29) + "|")
-        println(" "+"-".repeat(29))
-    }
-
-    fun registrarUsuario(){
-        //ToDo Hacer logica para registrar un usuario
-    }
-
-    fun iniciarSesion(tipoUsuario: String){
-
-        //ToDo hacer logica para iniciar la sesion
-
-        if (tipoUsuario == "usuario"){
-            println("Has iniciado exitosamente como model.Usuario.\n")
-            menuConsulta()
-        }
-        else if (tipoUsuario == "admin"){
-            println("Has iniciado exitosamente como Admin.\n")
-            menuAdmin()
-        }
-        else if (tipoUsuario == "gestion"){
-            println("Has iniciado exitosamente como Admin.\n")
-            menuGestion()
-        }
-    }
-
-    fun menuAdmin(){
-        println("\n1.Usuarios\n\t1. Nuevo model.Usuario\n\t2. Eliminar model.Usuario\n\t3. Cambiar contraseña\n2. Seguros\n\t1. Contratar model.Seguro\n\t\t1. model.Seguro de Hogar\n\t\t2. model.Seguro de Coche\n\t\t3. model.Seguro de Moto\n\t2. Eliminar model.Seguro\n\t3. Consultar Seguros\n\t\t1.Todos\n\t\t2. Hogar\n\t\t3. Auto\n\t\t4.Vida\n3. Salir")
-        print("Elija una opción -> ")
-
-        when(readlnOrNull()?.toInt()){
-            1 -> {
-                println("Has entrado en la seccion Usuarios, que te gustaría hacer:\n\t1. Nuevo model.Usuario\n\t2. Eliminar model.Usuario\n\t3. Cambiar contraseña")
-                print("Elija una opción -> ")
-                when(readlnOrNull()?.toInt()){
-                    1 -> return //ToDo crearUsuario
-                    2 -> return //ToDo eliminarUsuario
-                    3 -> return //ToDo cambiarContraseña
-                }
-            }
-            2 -> {
-                println("Has entrado en la seccion Seguros, que te gustaría hacer:\n\t1.Contratar model.Seguro\n\t\t1. Hogar\n\t\t2. Auto\n\t\t3. Vida\n\t2.Eliminar model.Seguro\n\t3.Consultar model.Seguro\n\t\t1. Todos\n\t\t2. Hogar\n\t\t3. Auto\n\t\t4. Vida\n\t3. Salir")
-                print("Elija una opción -> ")
-                when(readlnOrNull()?.toInt()){
-                    1 -> {
-                        println("Contratar un seguro, que tipo de seguro quieres contratar:\n\t1. Hogar\n\t2. Auto\n\t3. Vida")
-                        print("Elija una opción -> ")
-                        when(readlnOrNull()?.toInt()){
-                            1 -> return //ToDo contratarSeguro(TipoSeguro)
-                            2 -> return //ToDo contratarSeguro(TipoSeguro)
-                            3 -> return //ToDo contratarSeguro(TipoSeguro)
-                        }
-                    }
-                    2 -> {
-                        println("Que seguro quieres eliminar")
-                        //ToDo listarSeguros
-                    }
-                    3 -> return //ToDo crearUsuario
-                }
-            }
-            3 -> return
-            else -> println("Opcion incorrecta. Intentelo de nuevo")
-        }
-    }
-
-    fun menuConsulta(){
-        println("\n1. Seguros\n\t1. Consultar\n\t\t1. Todos\n\t\t2. Hogar\n\t\t3. Auto\n\t\t4. Vida\n2. Salir")
-        print("Elija una opción -> ")
-
-        when(readlnOrNull()?.toInt()){
-            1 -> {
-                println("Consultar Seguros:\n\t1. Todos\n\t2. Hogar\n\t3. Auto\n\t4. Vida")
-                print("Elija una opción -> ")
-                when(readlnOrNull()?.toInt()){
-                    1 -> return //ToDo listarTodos()
-                    2 -> return //ToDo listarSeguroHogar()
-                    3 -> return //ToDo listarSeguroAuto()
-                    4 -> return //ToDo listarSeguroVida()
-                }
-            }
-            2 -> return
-            else -> println("Opcion incorrecta. Intentelo de nuevo")
-        }
-    }
-
-    fun menuGestion(){
-        println("\n1. Seguros\n\t1. Contratar\n\t\t1. Hogar\n\t\t2. Auto\n\t\t3. Vida\n\t2. Eliminar model.Seguro\n\t3. Consultar\n\t\t1. Todos\n\t\t2. Hogar\n\t\t3. Auto\n\t\t4. Vida\n2. Salir")
-        print("Elija una opción -> ")
-
-        when(readlnOrNull()?.toInt()){
-            1 -> {
-                println("1. Contratar Seguros:\n\t1. Hogar\n\t2. Auto\n\t3. Vida\n2. Eliminar model.Seguro\n3. Consultar model.Seguro\n\t\t1. Todos\n\t\t2. Hogar\n\t\t3. Auto\n\t\t4. Vida")
-                print("Elija una opción -> ")
-                when(readlnOrNull()?.toInt()){
-                    1 -> return //ToDo contratarSeguro(Hogar)
-                    2 -> return //ToDo contratarSeguro(Auto)
-                    3 -> return //ToDo contratarSeguro(Vida)
-                }
-            }
-            2 -> return
-
-            else -> println("Opcion incorrecta. Intentelo de nuevo")
-        }
-    }
-
-    fun menuPrincipal(){
-
-        mostrarTitulo()
-
-        var almacenamiento: Boolean? = null
-        while (almacenamiento == null){
-            println("\nAntes de iniciar el programa necesito saber que modo de ejecución quieres:\n1. Ejecutar en modo simulación (solo en memoria)\n2. Ejecutar en modo Almacenamiento (usar ficheros)")
-            print("Elija una opción -> ")
-
-            when(readlnOrNull()){
-                "1" -> almacenamiento = false
-                "2" -> almacenamiento = true
-                else -> println("Opcion incorrecta. Intentelo de nuevo")
-            }
-        }
-
-        if (almacenamiento){
-            val rutaArchivoUsuarios = "Usuarios.txt"
-
-            if (!File(rutaArchivoUsuarios).exists() || File(rutaArchivoUsuarios).startsWith("")) {
-                val archivoUsuarios = File(rutaArchivoUsuarios)
-                println("\nNo se encontraron usuarios en el sistema. ¿Desea crear un usuario admin?\n1. Si\n2. No")
-                print("Elija una opción -> ")
-                when (readlnOrNull()?.toInt()) {
-                    1 -> registrarUsuario()
-                    2 -> return
-                    else -> println("Opcion incorrecta. Intentelo de nuevo")
-                }
-            }
-        }
-
-        println("\n\n\n")
-        mostrarTitulo()
-        println("\n1. Iniciar sesion como Administrador\n2. Iniciar sesion como Gestor\n3. Iniciar sesion como model.Usuario")
-        print("Elija una opción -> ")
-
-        when (readlnOrNull()?.toInt()) {
-            1 -> iniciarSesion("admin")
-            2 -> iniciarSesion("gestion")
-            3 -> iniciarSesion("usuario")
-            else -> println("Opcion incorrecta. Intentelo de nuevo")
-        }
-    }
-
-    */

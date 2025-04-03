@@ -44,7 +44,7 @@ class SeguroVida: Seguro {
     }
 
     override fun toString(): String {
-        return "Seguro de Vida(NºPoliza: $numPoliza, DNI Titular: $dniTitular, Importe: $importe, Fecha Nacimiento: $fechaNac, Nivel Riesgo: $nivelRiesgo, Indemnizacion: $indemnizacion)"
+        return "Seguro de Vida(NºPoliza: $numPoliza, DNI Titular: ${getDNI()}, Importe: $importe, Fecha Nacimiento: $fechaNac, Nivel Riesgo: $nivelRiesgo, Indemnizacion: $indemnizacion)"
     }
 
     companion object{

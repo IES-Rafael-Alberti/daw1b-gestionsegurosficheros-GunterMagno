@@ -12,6 +12,10 @@ abstract class Seguro(val numPoliza: Int,private val dniTitular: String, protect
         return "$numPoliza$separador$dniTitular$separador$importe"
     }
 
+    fun getDNI(): String{
+        return dniTitular
+    }
+
     override fun toString(): String {
         return "Seguro (numPoliza = $numPoliza, dniTitular = $dniTitular, importe = $importe)"
     }

@@ -42,7 +42,7 @@ class SeguroHogar : Seguro {
     }
 
     override fun toString(): String {
-        return "Seguro de Hogar(NºPoliza: $numPoliza, DNI Titular: $dniTitular, Importe: $importe, Metros Cuadrados: $metrosCuadrados, Direccion: $direccion, Valor Contenido: $valorContenido, Año Construcción: $anioConstruccion)"
+        return "Seguro de Hogar(NºPoliza: $numPoliza, DNI Titular: ${getDNI()}, Importe: $importe, Metros Cuadrados: $metrosCuadrados, Direccion: $direccion, Valor Contenido: $valorContenido, Año Construcción: $anioConstruccion)"
     }
 
     companion object{
