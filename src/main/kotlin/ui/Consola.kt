@@ -74,6 +74,7 @@ class Consola: IEntradaSalida {
         return valor
     }
 
+
     override fun pedirInfoOculta(prompt: String): String {
         return try {
             val terminal = TerminalBuilder.builder()

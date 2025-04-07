@@ -105,7 +105,7 @@ fun main() {
     val perfilUsuario = datosUsuario.second
 
     consola.limpiarPantalla()
-    consola.mostrar("¡Bienvenido, $nombreUsuario! (Perfil: ${perfilUsuario.name})")
+    consola.mostrar("¡Bienvenido, $nombreUsuario! (Perfil: $perfilUsuario)")
     val gestorMenu = GestorMenu(nombreUsuario,perfilUsuario,consola,gestorUsuarios,gestorSeguros)
 
     gestorMenu.iniciarMenu(0)

@@ -18,7 +18,7 @@ repositories {
 dependencies {
     testImplementation(kotlin("test"))
     implementation("at.favre.lib:bcrypt:0.10.2")
-    implementation("org.jline:jline-terminal-jansi:3.21.0") //ToDo esto me lo dijo la ia por el error que me deba lo de pedir info oculta
+    implementation("org.jline:jline:3.29.0")
     implementation("org.jline:jline-reader:3.21.0")
 }
 
