@@ -3,11 +3,14 @@ import app.CargadorInicial
 import app.ControlAcceso
 import app.GestorMenu
 import data.*
+import model.Seguro
+import model.SeguroAuto
+import model.SeguroHogar
+import model.SeguroVida
 import service.GestorSeguros
 import service.GestorUsuarios
 import utils.Ficheros
 import utils.Seguridad
-import javax.naming.ldap.Control
 
 fun seleccionarModoAlmacenamiento(consola: Consola): Boolean {
     while (true) {
@@ -67,13 +70,18 @@ fun main() {
     val repoUsuarios = if(!modoAlmacenamiento)(RepoUsuariosMem()) else RepoUsuariosFich(rutaUsuarios,gestorFicheros)
     val repoSeguros = if(!modoAlmacenamiento)(RepoSegurosMem()) else RepoSegurosFich(rutaSeguros,gestorFicheros)
 
-    if (modoAlmacenamiento) {
+    if (modoAlmacenamiento && repoUsuarios is RepoUsuariosFich && repoSeguros is RepoSegurosFich) {
         val cargadorInicial = CargadorInicial(consola)
 
-        val mapaSeguros = gestorFicheros.leerArchivo(rutaSeguros) //ToDo no se
+        val mapaSeguros: Map<String, (List<String>) -> Seguro> = mapOf(
+            "Seguro de Hogar" to { datos -> SeguroHogar.crearSeguro(datos) },
+            "Seguro de Auto" to { datos -> SeguroAuto.crearSeguro(datos) },
+            "Seguro de Vida" to { datos -> SeguroVida.crearSeguro(datos) }
+        )
 
-        cargadorInicial.cargarInfo(repoUsuarios,repoSeguros,mapaSeguros) //ToDo val lineas = fich.leerArchivo(rutaArchivo), esto es lo que tengo en cargar seguros
+        cargadorInicial.cargarInfo(repoUsuarios,repoSeguros,mapaSeguros)
     }
+
     // Se crean los servicios de lógica de negocio, inyectando los repositorios y el componente de seguridad.
 
     val gestorUsuarios = GestorUsuarios(repoUsuarios,seguridad)
@@ -83,22 +91,29 @@ fun main() {
     // Si no hay usuarios, se permite crear un usuario ADMIN inicial.
 
     val controlAcceso = ControlAcceso(rutaUsuarios,consola,gestorUsuarios,gestorFicheros)
-    controlAcceso.
+    val datosUsuario = controlAcceso.autenticar()
+
+    if (datosUsuario == null) {
+        consola.mostrarError("No se pudo completar la autenticación. Saliendo del programa...")
+        return
+    }
 
     // Si el login fue exitoso (no es null), se inicia el menú correspondiente al perfil del usuario autenticado.
     // Se lanza el menú principal, **iniciarMenu(0)**, pasándole toda la información necesaria.
 
+    val nombreUsuario = datosUsuario.first
+    val perfilUsuario = datosUsuario.second
+
+    consola.limpiarPantalla()
+    consola.mostrar("¡Bienvenido, $nombreUsuario! (Perfil: ${perfilUsuario.name})")
     val gestorMenu = GestorMenu(nombreUsuario,perfilUsuario,consola,gestorUsuarios,gestorSeguros)
 
+    gestorMenu.iniciarMenu(0)
 }
 
 //ToDo Importante
 
-//ToDo Arreglar constructores
-//ToDo Arreglar equals
-//ToDo terminar main.kt
-//ToDo Cambiar ruta archivos
-//ToDo terminar control de acceso en app
+// No funciona pedir infoOculta se queda rallao
 
 //ToDo Importancia media
 

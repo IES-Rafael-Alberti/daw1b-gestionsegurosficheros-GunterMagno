@@ -9,34 +9,41 @@ class SeguroAuto : Seguro {
     private var asistenciaCarretera: Boolean = true
     private var numPartes: Int = 0
 
-    constructor(dniTitular: String,
-                importe: Double,
-                descripcion: String,
-                combustible: String,
-                tipoAuto: TipoAuto,
-                tipoCobertura: Cobertura,
-                asistenciaCarretera: Boolean,
-                numPartes: Int
-    ) : super(generarID(),dniTitular,importe){
+    constructor(
+        dniTitular: String,
+        importe: Double,
+        descripcion: String,
+        combustible: String,
+        tipoAuto: TipoAuto,
+        cobertura: Cobertura,
+        asistenciaCarretera: Boolean,
+        numPartes: Int
+    ) : super(generarID(), dniTitular, importe) {
         this.descripcion = descripcion
         this.combustible = combustible
         this.tipoAuto = tipoAuto
-        this.tipoCobertura = tipoCobertura
+        this.tipoCobertura = cobertura
         this.asistenciaCarretera = asistenciaCarretera
         this.numPartes = numPartes
+    }
 
-        }
-
-    private constructor(numPoliza: Int,
-                        dniTitular: String,
-                        importe: Double,
-    ) : super(numPoliza,dniTitular,importe) {
-        this.descripcion
-        this.combustible
-        this.tipoAuto
-        this.tipoCobertura
-        this.asistenciaCarretera
-        this.numPartes
+    private constructor(
+        numPoliza: Int,
+        dniTitular: String,
+        importe: Double,
+        descripcion: String,
+        combustible: String,
+        tipoAuto: TipoAuto,
+        cobertura: Cobertura,
+        asistenciaCarretera: Boolean,
+        numPartes: Int
+    ) : super(numPoliza, dniTitular, importe) {
+        this.descripcion = descripcion
+        this.combustible = combustible
+        this.tipoAuto = tipoAuto
+        this.tipoCobertura = cobertura
+        this.asistenciaCarretera = asistenciaCarretera
+        this.numPartes = numPartes
     }
 
     private val tipoSeguro = tipoSeguro()
@@ -61,19 +68,18 @@ class SeguroAuto : Seguro {
             return (numPolizasAuto++)
         }
 
-        fun crearSeguro(datos: List<String>): SeguroAuto{
-            require(datos.size == 10) { "Datos incorrectos para crear SeguroAuto" }
+        fun crearSeguro(datos: List<String>): SeguroAuto {
+            require(datos.size == 10) { "Se necesitan exactamente 10 datos para crear SeguroAuto" }
             return SeguroAuto(
                 numPoliza = datos[0].toInt(),
                 dniTitular = datos[1],
-                id = datos[2].toInt(),
-                importe = datos[3].toDouble(),
-                descripcion = datos[4],
-                combustible = datos[5],
-                tipoAuto = TipoAuto.getAuto(datos[6]),
-                cobertura = Cobertura.getCobertura(datos[7]),
-                asistenciaCarretera = datos[8].toBoolean(),
-                numPartes = datos[9].toInt()
+                importe = datos[2].toDouble(),
+                descripcion = datos[3],
+                combustible = datos[4],
+                tipoAuto = TipoAuto.getAuto(datos[5]),
+                cobertura = Cobertura.getCobertura(datos[6]),
+                asistenciaCarretera = datos[7].toBoolean(),
+                numPartes = datos[8].toInt()
             )
         }
 
@@ -88,9 +94,7 @@ class SeguroAuto : Seguro {
             numPartes: Int
         ): SeguroAuto {
             return SeguroAuto(
-                numPoliza = ++numPolizasAuto,
                 dniTitular = dniTitular,
-                id = numPolizasAuto,
                 importe = importe,
                 descripcion = descripcion,
                 combustible = combustible,

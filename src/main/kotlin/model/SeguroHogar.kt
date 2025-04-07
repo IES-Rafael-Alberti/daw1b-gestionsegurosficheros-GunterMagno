@@ -6,28 +6,36 @@ class SeguroHogar : Seguro {
     private var metrosCuadrados: Int = 0
     private var valorContenido: Double = 0.0
     private var direccion: String = ""
-    private var anioConstruccion: String = ""
+    private var anioConstruccion: Int = 0
 
-    constructor(dniTitular: String,
-                importe: Double,
-                metrosCuadrados: Int,
-                valorContenido: Double,
-                direccion: String,
-                anioConstruccion: String
-    ) : super(generarID(), dniTitular, importe){
+    constructor(
+        dniTitular: String,
+        importe: Double,
+        metrosCuadrados: Int,
+        valorContenido: Double,
+        direccion: String,
+        anioConstruccion: Int
+    ) : super(generarID(), dniTitular, importe) {
         this.metrosCuadrados = metrosCuadrados
         this.valorContenido = valorContenido
         this.direccion = direccion
         this.anioConstruccion = anioConstruccion
     }
 
-    private constructor(numPoliza: Int,
-                        dniTitular: String,
-                        importe: Double,
-    ) : super(numPoliza,dniTitular,importe){
-        this.valorContenido
-        this.direccion
-        this.anioConstruccion
+    // Constructor interno para seguros existentes (usado al cargar desde archivo)
+    private constructor(
+        numPoliza: Int,
+        dniTitular: String,
+        importe: Double,
+        metrosCuadrados: Int,
+        valorContenido: Double,
+        direccion: String,
+        anioConstruccion: Int
+    ) : super(numPoliza, dniTitular, importe) {
+        this.metrosCuadrados = metrosCuadrados
+        this.valorContenido = valorContenido
+        this.direccion = direccion
+        this.anioConstruccion = anioConstruccion
     }
 
     private val tipoSeguro = tipoSeguro()
@@ -54,17 +62,17 @@ class SeguroHogar : Seguro {
             return (numPolizasHogar++)
         }
 
-        fun crearSeguro(datos: List<String>): SeguroHogar{
-            require(datos.size == 8) { "Datos incorrectos para crear SeguroHogar" }
+        fun crearSeguro(datos: List<String>): SeguroHogar {
+            require(datos.size == 8) { "Datos incorrectos para crear SeguroHogar. Se esperaban 8 valores pero se recibieron ${datos.size}" }
+
             return SeguroHogar(
                 numPoliza = datos[0].toInt(),
                 dniTitular = datos[1],
-                id = datos[2].toInt(),
-                importe = datos[3].toDouble(),
-                metrosCuadrados = datos[4].toInt(),
-                valorContenido = datos[5].toDouble(),
-                direccion = datos[6],
-                anioConstruccion = datos[7].toInt()
+                importe = datos[2].toDouble(),
+                metrosCuadrados = datos[3].toInt(),
+                valorContenido = datos[4].toDouble(),
+                direccion = datos[5],
+                anioConstruccion = datos[6].toInt()
             )
         }
 
@@ -77,14 +85,12 @@ class SeguroHogar : Seguro {
             anioConstruccion: Int
         ): SeguroHogar {
             return SeguroHogar(
-                numPoliza = ++numPolizasHogar,
                 dniTitular = dniTitular,
-                id = numPolizasHogar,
                 importe = importe,
                 metrosCuadrados = metrosCuadrados,
                 valorContenido = valorContenido,
                 direccion = direccion,
-                anioConstruccion = anioConstruccion
+                anioConstruccion = anioConstruccion.toInt()
             )
         }
     }

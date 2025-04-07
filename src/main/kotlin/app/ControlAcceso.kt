@@ -109,38 +109,3 @@ class ControlAcceso(private val rutaArchivoUsuarios: String,
     }
 
 }
-
-/* fun verificarAcceso(): Perfil? {
-        if (!fich.existeFichero(rutaArchivoUsuarios)) {
-            consola.mostrar("No se encontró el archivo de usuarios. Se creará uno nuevo.")
-            return crearUsuarioAdmin()
-        }
-
-        if (servUsuarios is ICargarUsuariosIniciales) {
-            val cargadoUsuarios = servUsuarios.cargarUsuarios()
-
-            if (!cargadoUsuarios) {
-                consola.mostrarError("Error al cargar los usuarios existentes.")
-                return null
-            }
-        }
-
-        return iniciarSesion()
-    }
-
-    private fun crearUsuarioAdmin(): Perfil? {
-        consola.mostrar("\nNo hay usuarios registrados. Debe crear un usuario administrador.")
-        val nombre = consola.pedirInfo("Nombre de usuario: ","Error al crear el nombre de usuario.") { it.isNotBlank() }
-        //ToDo deberia hacer para que no se repitan los nombres?
-        val clave = consola.pedirInfoOculta("Contraseña: ")
-
-        val usuarioCreado = servUsuarios.agregarUsuario(nombre, clave, Perfil.ADMIN)
-
-        return if (usuarioCreado) {
-            consola.mostrar("\nUsuario administrador creado con éxito.")
-            Perfil.ADMIN
-        } else {
-            consola.mostrarError("Error al crear el usuario administrador.")
-            null
-        }
-    }*/

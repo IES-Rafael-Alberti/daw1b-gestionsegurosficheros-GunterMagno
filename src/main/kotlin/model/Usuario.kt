@@ -19,7 +19,7 @@ class Usuario(val nombre: String,clave: String,val perfil: Perfil): IExportable{
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other !is Seguro) return false
+        if (other !is Usuario) return false
         return nombre == other.nombre
     }
 
